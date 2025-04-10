@@ -1,6 +1,6 @@
 #include "Vector.h"
 
-#include <stdio.h>
+
 
 bool _vectorOrdBuscar(const Vector* vector, const void* elem, void** pos, Cmp cmp);
 int _ampliarCapVector(Vector* vector);

@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <stddef.h>
 
 #define CAP_INI 10
 #define FACTOR_INCR 1.5
