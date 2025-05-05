@@ -3,6 +3,7 @@
 
 
 bool _vectorOrdBuscar(const Vector* vector, const void* elem, void** pos, Cmp cmp);
+bool _vectorOrdBuscarBinario(const Vector* vector, const void* elem, void** pos, Cmp cmp);
 int _ampliarCapVector(Vector* vector);
 void* _buscarMenor(void* ini, void* fin, size_t tamElem, Cmp cmp);
 
@@ -60,6 +61,36 @@ bool _vectorOrdBuscar(const Vector* vector, const void* elem, void** pos, Cmp cm
     return i <= ult && cmp(elem, i) == 0;
 }
 
+bool _vectorOrdBuscarBinario(const Vector* vector, const void* elem, void** pos, Cmp cmp)
+{
+    char* li = (char*)vector->vec;
+    char* ls = (char*)vector->vec + (vector->ce - 1) * vector->tamElem;
+    char* m;
+
+    while(li <= ls)
+    {
+        m = li + ((ls - li) / vector->tamElem / 2) * vector->tamElem;
+
+        int cmpRes = cmp(m, elem);
+
+        if(cmpRes == 0) {
+            *pos = m;
+            return true;
+        }
+        else if(cmpRes < 0){
+            li = m + vector->tamElem;
+        }
+        else{
+            ls = m - vector->tamElem;
+        }
+    }
+
+    *pos = li;  // posición donde debería insertarse si no se encuentra
+
+    return false;
+
+}
+
 
 int vectorOrdInsertar(Vector* vector, const void* elem, Cmp cmp)
 {
@@ -84,6 +115,28 @@ int vectorOrdInsertar(Vector* vector, const void* elem, Cmp cmp)
     return TODO_OK;
 }
 
+int vectorOrdInsertar2(Vector* vector, const void* elem, Cmp cmp)
+{
+    if(vector->ce == vector->cap)
+    {
+        if(!_ampliarCapVector(vector))
+            return SIN_MEM;
+    }
+
+    void* posIns;
+    bool existe = _vectorOrdBuscarBinario(vector, elem, &posIns, cmp);
+
+    if(existe)
+        return DUPLICADO;
+
+    for(void* i = vector->vec + (vector->ce - 1) * vector->tamElem; i >= posIns; i -= vector->tamElem)
+        memcpy(i + vector->tamElem, i, vector->tamElem);
+
+    memcpy(posIns, elem, vector->tamElem);
+    vector->ce++;
+
+    return TODO_OK;
+}
 
 int _ampliarCapVector(Vector* vector)
 {

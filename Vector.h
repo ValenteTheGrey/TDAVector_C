@@ -40,6 +40,7 @@ bool vectorCrear(Vector* vector, size_t tamElem);
 void vectorInsertarRandom(Vector* vector, int ce, int digitos);
 int vectorOrdBuscar(const Vector* vector, void* elem, Cmp cmp);
 int vectorOrdInsertar(Vector* vector, const void* elem, Cmp cmp);
+int vectorOrdInsertar2(Vector* vector, const void* elem, Cmp cmp);
 int vectorInsertarAlFinal(Vector* vector, const void* elem);
 void vectorDestruir(Vector* vector);
 bool vectorOrdEliminarElem(Vector* vector, void* elem,Cmp cmp);
