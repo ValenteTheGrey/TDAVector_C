@@ -123,6 +123,12 @@ int vectorOrdInsertar(Vector* vector, const void* elem, Cmp cmp)
 
 int vectorOrdInsertar2(Vector* vector, const void* elem, Cmp cmp)
 {
+    if(vector->ce == 0)
+    {
+        memcpy(vector->vec, elem, vector->tamElem);
+        return TODO_OK;
+    }
+    
     if(vector->ce == vector->cap)
     {
         if(!_ampliarCapVector(vector))
