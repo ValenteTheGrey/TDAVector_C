@@ -35,6 +35,7 @@ typedef struct
 
 typedef int (*Cmp)(const void* a, const void* b);
 typedef void (*Action)(void*, void*);
+typedef void (*Imprimir)(const void* a);
 
 bool vectorCrear(Vector* vector, size_t tamElem);
 void vectorInsertarRandom(Vector* vector, int ce, int digitos);
@@ -55,6 +56,7 @@ int cmpInt(const void* a, const void* b);
 void vectorMostrar(Vector* vector);
 void vectorItRecorrer(VectorIterador* vectorIt, Action accion, void* datos);
 void imprimirInt(void* e, void* ptFILE);
+void vectorMostrar(const Vector* vector, Imprimir imprimir);
 
 
 #endif //TDAVECTOR_VECTOR_H
