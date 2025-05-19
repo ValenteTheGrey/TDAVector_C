@@ -169,7 +169,7 @@ int vectorInsertarAlFinal(Vector* vector, const void* elem)
 {
     if(vector->ce == vector->cap)
     {
-        if(!_ampliarCapVector(vector))
+        if(_ampliarCapVector(vector) == SIN_MEM)
             return SIN_MEM;
     }
 
