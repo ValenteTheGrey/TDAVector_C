@@ -332,3 +332,15 @@ void imprimirInt(void* e, void* ptFILE) //datosA puntero a file donde imprimir
 
     fprintf(arch, "%d\n", *i);
 }
+
+void vectorMostrar(const Vector* vector, Imprimir imprimir)
+{
+    void* ult = vector->vec + (vector->ce - 1) * vector->tamElem;
+
+    for(void* i = vector->vec; i <= ult; i += vector->tamElem)
+    {
+        imprimir(i);
+    }
+
+    putchar('\n');
+}
