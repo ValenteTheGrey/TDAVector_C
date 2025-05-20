@@ -53,7 +53,7 @@ void* vectorItPrimero(VectorIterador* vectorIt);
 void* vectorItSiguiente(VectorIterador* vectorIt);
 bool vectorItFin(VectorIterador* vectorIt);
 int cmpInt(const void* a, const void* b);
-void vectorMostrar(Vector* vector);
+void vectorMostrarInt(Vector* vector);
 void vectorItRecorrer(VectorIterador* vectorIt, Action accion, void* datos);
 void imprimirInt(void* e, void* ptFILE);
 void vectorMostrar(const Vector* vector, Imprimir imprimir);
