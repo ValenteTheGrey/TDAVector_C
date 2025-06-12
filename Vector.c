@@ -256,7 +256,7 @@ void intercambiar(void* a, void* b, size_t tamElem)
     free(aTemp);
 }
 
-
+/*
 void vectorItCrear(VectorIterador* vectorIt, Vector* vector)
 {
     vectorIt->primero = vector->vec;
@@ -295,6 +295,56 @@ bool vectorItFin(VectorIterador* vectorIt)
 {
     return vectorIt->actual > vectorIt->ultimo;
 }
+*/
+
+
+void vectorItCrear(VectorIterador* vectorIt, Vector* vector)
+{
+    vectorIt->vector = vector;
+    vectorIt->actual = NULL;
+    vectorIt->ultimo = NULL;
+    vectorIt->finIt = true;
+
+}
+
+
+void* vectorItPrimero(VectorIterador* vectorIt)
+{
+    Vector* v = vectorIt->vector; //lo uso para no tener que hacer vectorIt->vector->vec
+    if(v->ce == 0)
+    {
+        vectorIt->finIt = true;
+        return NULL;
+    }
+
+    vectorIt->actual = v->vec;
+    vectorIt->ultimo = v->vec + (v->ce - 1) * v->tamElem;
+    vectorIt->finIt = false;
+
+    return vectorIt->actual;
+}
+
+
+void* vectorItSiguiente(VectorIterador* vectorIt)
+{
+    void* sig = vectorIt->actual + vectorIt->vector->tamElem;
+
+    if(sig > vectorIt->ultimo)
+    {
+        vectorIt->finIt = true;
+        return NULL;
+    }
+
+    vectorIt->actual = sig;
+
+    return sig;
+}
+
+
+bool vectorItFin(VectorIterador* vectorIt)      //Util para por ej while(!vectorItFin){ vectorItSiguiente}
+{
+    return vectorIt->finIt;
+}
 
 
 int cmpInt(const void* a, const void* b)
@@ -316,11 +366,24 @@ void vectorMostrarInt(Vector* vector)
     }
 }
 
+/*
 void vectorItRecorrer(VectorIterador* vectorIt, Action accion, void* datos)
 {
     for(void* i = vectorIt->primero; i <= vectorIt->ultimo; i += vectorIt->tamElem)
     {
         accion(i, datos);
+    }
+}
+*/
+
+
+void vectorItRecorrer(VectorIterador* vectorIt, Action accion, void* datos)
+{
+    void* actual = vectorItPrimero(vectorIt):
+    while(!vectorItFin(vectorIt))
+    {
+        accion(actual, datos);
+        vectorItSiguiente(vectorIt):
     }
 }
 
