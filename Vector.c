@@ -259,19 +259,26 @@ void intercambiar(void* a, void* b, size_t tamElem)
 
 void vectorItCrear(VectorIterador* vectorIt, Vector* vector)
 {
-    vectorIt->primero = vector->vec;
+    vectorIt->vector = vector;
     vectorIt->actual = NULL;
-    vectorIt->ultimo = vector->vec + (vector->ce - 1) * vector->tamElem;
-    vectorIt->tamElem = vector->tamElem;
+    vectorIt->ultimo = NULL;
+    vectorIt->finIt = true;
+
 }
 
 
 void* vectorItPrimero(VectorIterador* vectorIt)
 {
-    vectorIt->actual = vectorIt->primero;
-
-    if(vectorIt->actual > vectorIt->ultimo)
+    Vector* v = vectorIt->vector; //lo uso para no tener que hacer vectorIt->vector->vec
+    if(v->ce == 0)
+    {
+        vectorIt->finIt = true;
         return NULL;
+    }
+
+    vectorIt->actual = v->vec;
+    vectorIt->ultimo = v->vec + (v->ce - 1) * v->tamElem;
+    vectorIt->finIt = false;
 
     return vectorIt->actual;
 }
@@ -279,21 +286,23 @@ void* vectorItPrimero(VectorIterador* vectorIt)
 
 void* vectorItSiguiente(VectorIterador* vectorIt)
 {
-    if(!vectorIt->actual)
+    void* sig = vectorIt->actual + vectorIt->vector->tamElem;
+
+    if(sig > vectorIt->ultimo)
+    {
+        vectorIt->finIt = true;
         return NULL;
+    }
 
-    vectorIt->actual += vectorIt->tamElem;
+    vectorIt->actual = sig;
 
-    if(vectorIt->actual > vectorIt->ultimo)
-        return NULL;
-
-    return vectorIt->actual;
+    return sig;
 }
 
 
-bool vectorItFin(VectorIterador* vectorIt)
+bool vectorItFin(VectorIterador* vectorIt)      //Util para por ej while(!vectorItFin){ vectorItSiguiente}
 {
-    return vectorIt->actual > vectorIt->ultimo;
+    return vectorIt->finIt;
 }
 
 
@@ -318,9 +327,11 @@ void vectorMostrarInt(Vector* vector)
 
 void vectorItRecorrer(VectorIterador* vectorIt, Action accion, void* datos)
 {
-    for(void* i = vectorIt->primero; i <= vectorIt->ultimo; i += vectorIt->tamElem)
+    void* actual = vectorItPrimero(vectorIt);
+    while(!vectorItFin(vectorIt))
     {
-        accion(i, datos);
+        accion(actual, datos);
+        vectorItSiguiente(vectorIt);
     }
 }
 

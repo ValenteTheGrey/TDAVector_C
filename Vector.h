@@ -27,10 +27,10 @@ typedef struct
 
 typedef struct
 {
-    void* primero;
+    Vector* vector;
     void* actual;
     void* ultimo;
-    size_t tamElem;
+    bool finIt;
 }VectorIterador;
 
 typedef int (*Cmp)(const void* a, const void* b);
