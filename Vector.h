@@ -27,12 +27,21 @@ typedef struct
 
 typedef struct
 {
+    Vector* vector;
+    void* actual;
+    void* ultimo;
+    bool finIt;
+}VectorIterador;
+
+/*
+typedef struct
+{
     void* primero;
     void* actual;
     void* ultimo;
     size_t tamElem;
 }VectorIterador;
-
+*/
 typedef int (*Cmp)(const void* a, const void* b);
 typedef void (*Action)(void*, void*);
 typedef void (*Imprimir)(const void* a);
