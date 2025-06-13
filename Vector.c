@@ -184,8 +184,10 @@ int vectorInsertarAlFinal(Vector* vector, const void* elem)
 
 void vectorDestruir(Vector* vector)
 {
+    vector->ce = 0;
     free(vector->vec);
     vector->vec = NULL;
+    vector->cap = 0;
 }
 
 
