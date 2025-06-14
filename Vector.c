@@ -393,10 +393,10 @@ void vectorItRecorrer(VectorIterador* vectorIt, Action accion, void* datos)
 
 void vectorItRecorrer(VectorIterador* vectorIt, Action accion, void* datos)
 {
-    void* actual = vectorItPrimero(vectorIt);
+    vectorIt->actual = vectorItPrimero(vectorIt);
     while(!vectorItFin(vectorIt))
     {
-        accion(actual, datos);
+        accion(vectorIt->actual, datos);
         vectorItSiguiente(vectorIt);
     }
 }
