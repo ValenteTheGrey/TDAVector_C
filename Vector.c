@@ -94,18 +94,19 @@ bool _vectorOrdBuscarBinario(const Vector* vector, const void* elem, void** pos,
 
 int vectorOrdInsertar(Vector* vector, const void* elem, Cmp cmp)
 {
-    if(vector->ce == vector->cap)
-    {
-        if(!_ampliarCapVector(vector))
-            return SIN_MEM;
-    }
-
     if(vector->ce == 0)
     {
         memcpy(vector->vec, elem, vector->tamElem);
         vector->ce++;
         return TODO_OK;
     }
+    
+    if(vector->ce == vector->cap)
+    {
+        if(!_ampliarCapVector(vector))
+            return SIN_MEM;
+    }
+
     void* posIns;
     bool existe = _vectorOrdBuscar(vector, elem, &posIns, cmp);
 
@@ -123,17 +124,17 @@ int vectorOrdInsertar(Vector* vector, const void* elem, Cmp cmp)
 
 int vectorOrdInsertar2(Vector* vector, const void* elem, Cmp cmp)
 {
-    if(vector->ce == vector->cap)
-    {
-        if(!_ampliarCapVector(vector))
-            return SIN_MEM;
-    }
-
     if(vector->ce == 0)
     {
         memcpy(vector->vec, elem, vector->tamElem);
         vector->ce++;
         return TODO_OK;
+    }
+    
+    if(vector->ce == vector->cap)
+    {
+        if(!_ampliarCapVector(vector))
+            return SIN_MEM;
     }
 
     void* posIns;
